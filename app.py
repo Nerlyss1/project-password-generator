@@ -7,13 +7,22 @@ lettres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 chiffres = "0123456789"
 caracteres_speciaux = "!@#$%^&*()-_=+[]{}|;:,.<>?/"
 
+MIN_LENGTH = 4
+MAX_LENGTH = 64
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    mot_de_passe =""    
+    mot_de_passe = ""    
+
     if request.method == 'POST':
-        longueur = int(request.form.get('longueur', 8))
+        try:
+            longueur = int(request.form.get('longueur', 16))
+        except ValueError:
+            longueur = 16
+        longueur = max(MIN_LENGTH, min(longueur, MAX_LENGTH))
+
         include_chiffres = request.form.get('chiffres') == 'on'
-        include_symboles = request.form.get('symboles') == 'on'  # <-- correspond au HTML
+        include_symboles = request.form.get('symboles') == 'on'
 
         caracteres_finaux = lettres
         if include_chiffres:
@@ -24,8 +33,7 @@ def index():
             mot_de_passe += random.choice(caracteres_speciaux)
 
         restants = longueur - len(mot_de_passe)
-
-        for i in range(restants):
+        for _ in range(restants):
             mot_de_passe += random.choice(caracteres_finaux)
 
         mot_de_passe = ''.join(random.sample(mot_de_passe, len(mot_de_passe)))
@@ -33,4 +41,4 @@ def index():
     return render_template('index.html', mot_de_passe=mot_de_passe)
 
 if __name__ == '__main__':
-     app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)

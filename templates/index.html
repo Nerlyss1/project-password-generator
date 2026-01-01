@@ -6,8 +6,8 @@
 <body>
     <h1>Générateur de mot de passe</h1>
     <form method="POST">
-        <label>Longueur:</label>
-        <input type="number" name="longueur" value="16"><br><br>
+        <label>Longueur :</label>
+        <input type="number" name="longueur" value="16" min="4" max="64"><br><br>
 
         <input type="checkbox" name="chiffres"> Inclure des chiffres<br>
         <input type="checkbox" name="symboles"> Inclure des symboles<br><br>
@@ -16,8 +16,9 @@
     </form>
 
     {% if mot_de_passe %}
-        <h2>Mot de passe généré&nbsp;:</h2>
+        <h2>Mot de passe généré :</h2>
         <p>{{ mot_de_passe }}</p>
+        <button onclick="navigator.clipboard.writeText('{{ mot_de_passe }}')">Copier</button>
     {% endif %}
 </body>
 </html>
