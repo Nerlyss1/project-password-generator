@@ -12,11 +12,12 @@ MAX_LENGTH = 64
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    mot_de_passe = ""    
+    mot_de_passe = ""
 
+    # Valeurs par défaut depuis les cookies
     longueur = int(request.cookies.get('longueur', 16))
-    include_chiffres = request.cookies.get('chiffres', 'False') == 'True'
-    include_symboles = request.cookies.get('symboles', 'False') == 'True'
+    include_chiffres = request.cookies.get('chiffres', '0') == '1'
+    include_symboles = request.cookies.get('symboles', '0') == '1'
 
     if request.method == 'POST':
         try:
@@ -42,14 +43,17 @@ def index():
 
         mot_de_passe = ''.join(random.sample(mot_de_passe, len(mot_de_passe)))
 
-    response = make_response(render_template('index.html',
-                                             mot_de_passe=mot_de_passe,
-                                             longueur=longueur,
-                                             include_chiffres=include_chiffres,
-                                             include_symboles=include_symboles))
+    response = make_response(render_template(
+        'index.html',
+        mot_de_passe=mot_de_passe,
+        longueur=longueur,
+        include_chiffres=include_chiffres,
+        include_symboles=include_symboles
+    ))
+
     response.set_cookie('longueur', str(longueur))
-    response.set_cookie('chiffres', str(include_chiffres))
-    response.set_cookie('symboles', str(include_symboles))
+    response.set_cookie('chiffres', '1' if include_chiffres else '0')
+    response.set_cookie('symboles', '1' if include_symboles else '0')
 
     return response
 
