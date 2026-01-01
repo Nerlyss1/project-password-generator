@@ -14,15 +14,19 @@ MAX_LENGTH = 64
 def index():
     mot_de_passe = ""    
 
+    longueur = int(request.cookies.get('longueur', 16))
+    include_chiffres = request.cookies.get('chiffres', 'False') == 'True'
+    include_symboles = request.cookies.get('symboles', 'False') == 'True'
+
     if request.method == 'POST':
         try:
-            longueur = int(request.cookies.get('longueur', 16))
+            longueur = int(request.form.get('longueur', 16))
         except ValueError:
             longueur = 16
         longueur = max(MIN_LENGTH, min(longueur, MAX_LENGTH))
 
-        include_chiffres = request.cookies.get('chiffres') == 'on'
-        include_symboles = request.cookies.get('symboles') == 'on'
+        include_chiffres = request.form.get('chiffres') == 'on'
+        include_symboles = request.form.get('symboles') == 'on'
 
         caracteres_finaux = lettres
         if include_chiffres:
