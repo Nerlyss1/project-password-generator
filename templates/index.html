@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Générateur de mot de passe</title>
+</head>
+<body>
+    <h1>Générateur de mot de passe</h1>
+    <form method="POST">
+        <label>Longueur:</label>
+        <input type="number" name="longueur" value="16"><br><br>
+
+        <input type="checkbox" name="chiffres"> Inclure des chiffres<br>
+        <input type="checkbox" name="symboles"> Inclure des symboles<br><br>
+
+        <input type="submit" value="Générer">
+    </form>
+
+    {% if mot_de_passe %}
+        <h2>Mot de passe généré&nbsp;:</h2>
+        <p>{{ mot_de_passe }}</p>
+    {% endif %}
+</body>
+</html>
