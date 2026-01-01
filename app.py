@@ -14,7 +14,6 @@ MAX_LENGTH = 64
 def index():
     mot_de_passe = ""
 
-    # Valeurs par défaut depuis les cookies
     longueur = int(request.cookies.get('longueur', 16))
     include_chiffres = request.cookies.get('chiffres', '0') == '1'
     include_symboles = request.cookies.get('symboles', '0') == '1'
