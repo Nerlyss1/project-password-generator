@@ -14,6 +14,7 @@ MAX_LENGTH = 64
 def index():
     mot_de_passe = ""
 
+    # Valeurs par défaut depuis les cookies
     longueur = int(request.cookies.get('longueur', 16))
     include_chiffres = request.cookies.get('chiffres', '0') == '1'
     include_symboles = request.cookies.get('symboles', '0') == '1'
@@ -29,6 +30,8 @@ def index():
         include_symboles = request.form.get('symboles') == 'on'
 
         caracteres_finaux = lettres
+        mot_de_passe += random.choice(lettres)  # Au moins une lettre
+
         if include_chiffres:
             caracteres_finaux += chiffres
             mot_de_passe += random.choice(chiffres)

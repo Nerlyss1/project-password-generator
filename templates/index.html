@@ -7,7 +7,8 @@
     <h1>Générateur de mot de passe</h1>
     <form method="POST">
         <label>Longueur :</label>
-        <input type="number" name="longueur" value="{{ longueur }}" min="4" max="64"><br><br>
+        <input type="number" name="longueur" value="{{ longueur }}" min="4" max="64" step="1"
+               oninput="this.value=this.value.replace(/[^0-9]/g,'')"><br><br>
 
         <input type="checkbox" name="chiffres" {% if include_chiffres %}checked{% endif %}> Inclure des chiffres<br>
         <input type="checkbox" name="symboles" {% if include_symboles %}checked{% endif %}> Inclure des symboles<br><br>
