@@ -7,20 +7,20 @@ chiffres = "0123456789"
 caracteres_speciaux = "!@#$%^&*()-_=+[]{}|;:,.<>?/"
 caracteres_finaux = lettres
 
-nombre_fois = int(input("Combien de caractères souhaitez-vous dans votre mot de passe ? "))
-chiffre_oui = input("Voulez vous inclure des chiffres ? (oui/non) ")
-chiffre_oui = chiffre_oui.lower()
-caracteres_speciaux_oui = input("Voulez vous inclure des caractères spéciaux ? (oui/non) ")
-caracteres_speciaux_oui = caracteres_speciaux_oui.lower()
+taille_mot_de_passe = int(input("Combien de caractères souhaitez-vous dans votre mot de passe ? "))
+utilisation_chiffres_input = input("Voulez vous inclure des chiffres ? (oui/non) ")
+utilisation_chiffres_input = utilisation_chiffres_input.lower()
+utilisation_symboles_input = input("Voulez vous inclure des caractères spéciaux ? (oui/non) ")
+utilisation_symboles_input = utilisation_symboles_input.lower()
 
-if chiffre_oui == "oui" :
+if utilisation_chiffres_input == "oui" :
     caracteres_finaux += chiffres
     mot_de_passe += random.choice(chiffres)  
-if caracteres_speciaux_oui == "oui" :
+if utilisation_symboles_input == "oui" :
     caracteres_finaux += caracteres_speciaux
     mot_de_passe += random.choice(caracteres_speciaux)
 
-restants = nombre_fois - len(mot_de_passe)
+restants = taille_mot_de_passe - len(mot_de_passe)
 
 for i in range(restants):
     mot_de_passe += random.choice(caracteres_finaux)
